@@ -1,0 +1,387 @@
+/* ================================
+   Print Styles
+   ================================ */
+@media print {
+  #menu {
+    display: none;
+  }
+
+  body {
+    font-family: Verdana, Helvetica, sans-serif;
+  }
+
+  h1 {
+    font-size: 13pt;
+    font-weight: bold;
+    margin: 4pt 0pt 0pt 0pt;
+    padding: 0;
+  }
+
+  h2 {
+    font-size: 12pt;
+    font-weight: bold;
+    margin: 3pt 0pt 0pt 0pt;
+    padding: 0;
+  }
+
+  h3, a:link, a:visited {
+    font-size: 9pt;
+    font-weight: bold;
+    margin: 1pt 0pt 0pt 20pt;
+    padding: 0;
+    text-decoration: none;
+    color: #000000;
+  }
+
+  p, ul {
+    font-size: 9pt;
+    margin: 1pt 0pt 8pt 40pt;
+    padding: 0;
+    text-align: left;
+  }
+
+  li {
+    font-size: 9pt;
+    margin: 0;
+    padding: 0;
+    text-align: left;
+  }
+
+  table {
+    margin: 1pt 0pt 8pt 40pt;
+    border: 0px;
+    width: 90%;
+  }
+
+  td {
+    border: 0px;
+    border-top: 1px solid black;
+    font-size: 9pt;
+  }
+
+  .head td {
+    border: 0px;
+    font-weight: bold;
+    font-size: 9pt;
+  }
+
+  .noprint {
+    display: none;
+  }
+}
+
+/* ================================
+   Screen Styles
+   ================================ */
+@media screen {
+  body {
+    font-family: Verdana, Helvetica, sans-serif;
+    margin: 0;
+    background-color: #FFFFFF;
+    color: #000000;
+    text-align: center;
+  }
+
+  #container {
+    text-align: left;
+    margin: 10px auto;
+    width: 90%;
+  }
+
+  h1 {
+    font-family: Verdana, Helvetica, sans-serif;
+    font-weight: bold;
+    font-size: 14pt;
+    color: #FFFFFF;
+    background-color: #2A0D45;
+    margin: 10px 0 0 0;
+    padding: 5px 4px;
+    width: 100%;
+    border: 1px solid black;
+    text-align: left;
+  }
+
+  h2 {
+    font-family: Verdana, Helvetica, sans-serif;
+    font-weight: bold;
+    font-size: 11pt;
+    color: #000000;
+    margin: 30px 0 0 0;
+    padding: 4px;
+    width: 100%;
+    background-color: #F0F8FF;
+    text-align: left;
+  }
+
+  h2.green {
+    color: #000000;
+    background-color: #CCFFCC;
+    border-color: #006400;
+  }
+
+  h2.red {
+    color: #000000;
+    background-color: #FFCCCC;
+    border-color: #8B0000;
+  }
+
+  h3 {
+    font-family: Verdana, Helvetica, sans-serif;
+    font-weight: bold;
+    font-size: 10pt;
+    color: #000000;
+    background-color: #FFFFFF;
+    width: 75%;
+    text-align: left;
+  }
+
+  p {
+    font-family: Verdana, Helvetica, sans-serif;
+    font-size: 8pt;
+    color: #000000;
+    background-color: #FFFFFF;
+    width: 75%;
+    text-align: left;
+  }
+
+  p i {
+    font-family: Verdana, Helvetica, sans-serif;
+    font-size: 8pt;
+    color: #000000;
+    background-color: #CCCCCC;
+  }
+
+  ul {
+    font-family: Verdana, Helvetica, sans-serif;
+    font-size: 8pt;
+    color: #000000;
+    background-color: #FFFFFF;
+    width: 75%;
+    text-align: left;
+  }
+
+  a {
+    font-family: Verdana, Helvetica, sans-serif;
+    text-decoration: none;
+    font-size: 8pt;
+    font-weight: bold;
+    background-color: #FFFFFF;
+    color: #000000;
+  }
+
+  li a {
+    font-family: Verdana, Helvetica, sans-serif;
+    text-decoration: none;
+    font-size: 10pt;
+    font-weight: bold;
+    background-color: #FFFFFF;
+    color: #000000;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+
+  a.up {
+    color: #006400;
+  }
+
+  table {
+    width: 80%;
+    border: 0px;
+    color: #000000;
+    background-color: #000000;
+    margin: 10px;
+  }
+
+  tr {
+    vertical-align: top;
+    font-family: Verdana, Helvetica, sans-serif;
+    font-size: 8pt;
+    color: #000000;
+    background-color: #FFFFFF;
+  }
+
+  tr.head {
+    background-color: #E1E1E1;
+    color: #000000;
+    font-weight: bold;
+  }
+
+  tr.open {
+    background-color: #CCFFCC;
+    color: #000000;
+  }
+
+  tr.script {
+    background-color: #EFFFF7;
+    color: #000000;
+  }
+
+  tr.filtered {
+    background-color: #F2F2F2;
+    color: #000000;
+  }
+
+  tr.closed {
+    background-color: #F2F2F2;
+    color: #000000;
+  }
+
+  td {
+    padding: 2px;
+  }
+
+  #menu li {
+    display: inline;
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+  }
+
+  #menubox {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    width: 120px;
+  }
+
+  /* This section handles IE's refusal to honor fixed CSS attribute */
+  * html div#menubox {
+    position: absolute;
+    top: expression(
+      eval(document.compatMode && document.compatMode=='CSS1Compat') ?
+      documentElement.scrollTop + (documentElement.clientHeight - this.clientHeight) 
+      : document.body.scrollTop + (document.body.clientHeight - this.clientHeight)
+    );
+  }
+
+  * html,* html body {
+    background: #fff url(nosuchfile) fixed;
+  }
+
+  .up {
+    color: #000000;
+    background-color: #CCFFCC;
+  }
+
+  .down {
+    color: #626262;
+    background-color: #F2F2F2;
+  }
+
+  .print_only {
+    display: none;
+  }
+
+  .hidden {
+    display: none;
+  }
+
+  .unhidden {
+    display: block;
+  }
+}
+
+
+/* ================================
+   Additional Custom Layout
+   ================================ */
+
+
+.form-group {
+  display: flex;
+  justify-content: space-between; /* Space elements equally */
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+  width: 722px; /* Set the total width of the form group */
+  padding-top: 10px; /* Add 10px of top padding */
+}
+
+.form-group label {
+  font-weight: bold;
+  width: 15%; /* Allocate fixed percentage width to the label */
+}
+
+.form-group input,
+.form-group select {
+  width: 35%; /* Allocate fixed width to inputs and select elements */
+  padding: 5px;
+  box-sizing: border-box; /* Ensure padding doesn't affect width */
+}
+
+.form-group button {
+  width: 15%; /* Allocate fixed width to the button */
+  padding: 5px 10px;
+}
+
+.query-preview-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.query-preview {
+  width: 722px;
+  text-align: center;
+  font-size: 14px;
+  color: gray;
+  font-family: monospace;
+}
+
+.result-container {
+  display: flex;
+  align-items: flex-start;
+  margin-top: 20px;
+  margin-left: 100px;
+}
+
+.result-container img {
+  border: none;
+  max-width: 700px; /* Ensure images are properly sized */
+}
+
+#output {
+  display: none;
+  margin-top: 10px;
+  margin-left: 100px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  background-color: #f9f9f9;
+  width: 700px;
+  white-space: pre-wrap;
+  font-family: monospace;
+}
+
+.header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* push them apart */
+  margin-right: 20px;            /* buffer against the right side wall */
+  margin-left: 100px;
+}
+
+/* Just to clearly separate the logout link */
+.logout-button-container {
+  /* no special positioning needed, 
+     but you could add margin or padding if you want more spacing */
+}
+
+/* Optionally style the logout button itself */
+.logout-button {
+  display: inline-block;
+  background-color: #d9534f; /* a "red" style button color */
+  color: #fff;
+  padding: 8px 12px;
+  text-decoration: none;
+  border-radius: 4px;
+  font-weight: bold;
+  margin-left: 20px; /* if you want a gap from the form */
+}
+
+.logout-button:hover {
+  background-color: #c9302c;
+}
+
+

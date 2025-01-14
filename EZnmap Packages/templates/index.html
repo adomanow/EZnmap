@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>EZnmap</title>
+  <!-- Link to your external stylesheet -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+  
+  <!-- Defer loading of your JavaScript -->
+  <script defer src="{{ url_for('static', filename='js/main.js') }}"></script>
+</head>
+<body>
+
+<h1>EZnmap</h1>
+  <!-- Wrap the form and logout in a single horizontal row -->
+  <div class="header-row">
+    <!-- The existing Nmap form -->
+    <form onsubmit="startScan(event)">
+      <div class="form-group">
+        <label for="target">Target:</label>
+        <input type="text" id="target" name="target" value="192.168.1.1" placeholder="192.168.1.1"/>
+        <input type="text" id="mask" name="mask" placeholder="/24" />
+        <select id="query" name="query">
+          <option value="-T4 -A -v">Intense Scan</option>
+          <option value="-sS -sU -T4 -A -v">Intense Scan + UDP</option>
+          <option value="-p 1-65535 -T4 -A -v">All TCP Ports</option>
+          <option value="-T4 -A -v -Pn">No Ping</option>
+          <option value="-sn">Ping Scan</option>
+          <option value="-T4 -F">Quick Scan</option>
+          <option value="-sV -T4 -O -F --version-light">Quick Scan Plus</option>
+          <option value="-sn --traceroute">Traceroute</option>
+          <option value="">Regular Scan</option>
+        </select>
+        <button type="submit">Run</button>
+      </div>
+    </form>
+
+    <!-- Logout button on the far right -->
+    <div class="logout-button-container">
+      <a href="{{ url_for('auth.logout') }}" class="logout-button">Logout</a>
+    </div>
+  </div>
+  
+  <!-- The rest of your page -->
+  <div class="query-preview" id="queryPreview"></div>
+  <div id="output"></div>
+
+  {% if png_file or html_content %}
+    <hr />
+    <div class="result-container">
+      <!-- Legend -->
+      <div>
+        <img src="{{ url_for('serve_legend') }}" alt="Legend" />
+      </div>
+      <!-- Topology Image -->
+      {% if png_file %}
+      <div>
+        <img src="{{ url_for('serve_png', file=png_file) }}" alt="Topology PNG">
+      </div>
+      {% endif %}
+    </div>
+    
+    <!-- HTML Report -->
+    {% if html_content %}
+      <h3></h3>
+      <div style="border: 1px solid #999; padding: 10px; margin-bottom: 20px;">
+        {{ html_content|safe }}
+      </div>
+    {% endif %}
+  {% endif %}
+</body>
+</html>
+
