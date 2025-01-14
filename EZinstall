@@ -58,4 +58,4 @@ EOF
 sudo docker build -t eznmap .
 
 # Run the Docker container using host networking
-sudo docker run --net=host -it eznmap
+sudo docker run --net=host eznmap
