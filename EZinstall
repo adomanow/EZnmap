@@ -1,0 +1,61 @@
+#!/bin/bash
+set -e
+
+# Check if Docker is installed
+if ! command -v docker &>/dev/null; then
+    echo "Error: Docker Engine is not installed. Please install Docker before running this script."
+    exit 1
+fi
+
+# Check if Docker daemon is running
+if ! docker info &>/dev/null; then
+    echo "Error: Docker does not appear to be running. Please start Docker before running this script."
+    exit 1
+fi
+
+# Create a temporary directory for building the Docker image
+BUILD_DIR=$(mktemp -d)
+cd "$BUILD_DIR"
+
+# Create a Dockerfile with the desired instructions
+cat <<'EOF' > Dockerfile
+# Use Debian Bookworm Slim as the base image
+FROM debian:bookworm-slim
+
+# Install system dependencies, including LDAP, Flask, Gunicorn, and git for cloning repos
+RUN apt-get update && apt-get install -y \
+    git \
+    python3 python3-pip python3-venv python3-flask \
+    python3-ldap python3-gi python3-gi-cairo \
+    gir1.2-gtk-3.0 gir1.2-goocanvas-2.0 libcairo2 python3-cairo \
+    xvfb nmap \
+    libsasl2-dev python-dev-is-python3 libldap2-dev libssl-dev \
+    gunicorn xsltproc \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# Set up the working directory
+WORKDIR /app
+
+# Clone EZnmap Packages from GitHub and copy its contents into /app
+RUN git clone https://github.com/adomanow/EZnmap.git /tmp/eznmap && \
+    cp -r "/tmp/eznmap/EZnmap Packages/." . && \
+    rm -rf /tmp/eznmap
+
+# Clone the Nmap repository into /app/nmap folder
+RUN git clone https://github.com/nmap/nmap.git nmap
+
+# Make sure all required Python scripts are executable
+RUN chmod +x /app/topogen.py /app/app.py
+
+# Expose the port the Flask app will run on
+EXPOSE 5000
+
+# Default command to run the Flask app using Gunicorn
+CMD ["gunicorn", "-c", "gunicorn_config.py", "wsgi:eznmap"]
+EOF
+
+# Build the Docker image with the tag "eznmap"
+sudo docker build -t eznmap .
+
+# Run the Docker container using host networking
+sudo docker run --net=host -it eznmap
